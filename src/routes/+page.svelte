@@ -45,25 +45,74 @@
     }
 </script> 
 
-<h1> Birds Classification Demo </h1> 
+<div class="main">
 
-<label for="avatar">Upload a Bird Image:</label>
-<input
-	accept="image/png, image/jpeg"
-	bind:files
-	id="avatar"
-	name="avatar"
-	type="file"
-/>
+    <h1> Birds Classification Demo </h1> 
 
-{#if imageUrl}
-    <img src={imageUrl} alt={SUCCESS ? `A photo of an ${RN_pred} type bird.` : `An uploaded photo.`}/> 
-{/if}
+    <div class="label"> 
+        <h2>Upload a Bird Image:</h2>
+        <input
+            accept="image/png, image/jpeg"
+            bind:files
+            type="file"
+        />
+    </div>
 
-{#if SUCCESS}
-    <h1> Common Name: {RN_pred}, Sci. Name: {SN_pred} </h1>
-{:else if SUCCESS == false}
-    <h1> Unfortunately, ML model no work on this. </h1>
-{/if}
+    {#if imageUrl}
+        <img src={imageUrl} alt={SUCCESS ? `A photo of an ${RN_pred} type bird.` : `An uploaded photo.`}/> 
+    {/if}
+
+    <div class="classification-text"> 
+        {#if SUCCESS}
+            <h1> Common Name: {RN_pred} </h1> 
+            <h1> Sci. Name: {SN_pred} </h1>
+        {:else if SUCCESS == false}
+            <h1> Unfortunately, ML model no work on this. </h1>
+        {/if}
+    </div> 
+
+</div> 
+
+<style> 
+
+body {
+    background-color: lavender;
+}
+
+img {
+    height: 20em; 
+    margin-top: 2em;
+}
+
+.label {
+    margin-top: 5em;
+}
+
+.main {
+    text-align: center; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: lavender;
+    height: 2000px;
+    margin: 0;
+    top: 0;
+}
+
+.classification-text {
+    margin-top: 2em;
+    width: 100%; 
+    justify-content: center;
+    align-items: center;
+    display: flex; 
+    flex-direction: column;
+    gap: 1em;
+}
+
+h1 {
+    top: 0;
+    margin: 0;
+    padding: 0;
+}
+
+</style> 
 
 
