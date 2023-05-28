@@ -18,6 +18,10 @@
             if (error == undefined) {
                 const {data : urlData} = client.storage.from("birds-caa-event").getPublicUrl(data.path);
                 imageUrl = urlData.publicUrl;
+                console.log(imageUrl);
+
+                console.log("SENDING FOR PREDICTION");
+
                 const predictionData = await predictImageType(imageUrl);
                 console.log(predictionData);
                 SUCCESS = predictionData.successClassification; 
@@ -25,6 +29,7 @@
                 RN_pred = predictionData.classificationResp.RN; 
             }
         })(); 
+        files = null;
     }
 
     // extras 
@@ -34,12 +39,14 @@
         const classificationResp = await data.json();
         let successClassification = true;
         console.log(classificationResp);
+
+        // this is where it continually is failing 
         if (
         classificationResp.error ||
         classificationResp?.SN.includes("background")
         ) {
             successClassification = false;
-            console.log(classificationResp)
+            console.log("THIS THE ERROR");
         }
         return {successClassification: successClassification, classificationResp: classificationResp};
     }
